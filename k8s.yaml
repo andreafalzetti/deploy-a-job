@@ -31,3 +31,29 @@ spec:
         cpu: "500m"
   
   restartPolicy: Never
+
+  ---
+
+  apiVersion: batch/v1
+kind: Job
+metadata:
+  name: short-lived-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: short-lived-job
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "sleep 1"]
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      restartPolicy: Never
+  backoffLimit: 0
