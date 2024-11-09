@@ -1,0 +1,5 @@
+deploy:
+  - kubectl apply -f k8s.yaml
+
+destroy:
+  - kubectl delete -f k8s.yaml  
