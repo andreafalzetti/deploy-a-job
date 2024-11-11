@@ -1,7 +1,7 @@
-dependencies:
-  - https://github.com/okteto/compose-getting-started
-  - https://github.com/okteto/go-getting-started
-  - https://github.com/okteto/microservices-demo
+# dependencies:
+#   - https://github.com/okteto/compose-getting-started
+#   - https://github.com/okteto/go-getting-started
+#   - https://github.com/okteto/microservices-demo
 
 deploy:
   - kubectl apply -f k8s.yaml
