@@ -14,23 +14,23 @@ spec:
         memory: "512Mi"
         cpu: "500m"
 
-  - name: container2
-    image: busybox
-    command: ['sh', '-c', 'echo "Container 2 starting"; sleep 120']
-    resources:
-      requests:
-        memory: "512Mi"
-        cpu: "500m"
+  # - name: container2
+  #   image: busybox
+  #   command: ['sh', '-c', 'echo "Container 2 starting"; sleep 120']
+  #   resources:
+  #     requests:
+  #       memory: "512Mi"
+  #       cpu: "500m"
 
-  - name: container3
-    image: busybox
-    command: ['sh', '-c', 'echo "Container 3 starting"; sleep 180']
-    resources:
-      requests:
-        memory: "512Mi"
-        cpu: "500m"
+  # - name: container3
+  #   image: busybox
+  #   command: ['sh', '-c', 'echo "Container 3 starting"; sleep 180']
+  #   resources:
+  #     requests:
+  #       memory: "512Mi"
+  #       cpu: "500m"
   
-  restartPolicy: Never
+  # restartPolicy: Never
 
 ---
 
@@ -47,7 +47,7 @@ spec:
       containers:
       - name: busybox
         image: busybox
-        command: ["sh", "-c", "sleep 1"]
+        command: ["sh", "-c", "sleep 60"]
         resources:
           requests:
             cpu: "500m"
@@ -57,3 +57,30 @@ spec:
             memory: "512Mi"
       restartPolicy: Never
   backoffLimit: 0
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: short-lived-job2
+spec:
+  template:
+    metadata:
+      labels:
+        app: short-lived-job2
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "sleep 90"]
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      restartPolicy: Never
+  backoffLimit: 0
+
